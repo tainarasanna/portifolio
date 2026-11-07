@@ -350,7 +350,13 @@
     .reel .ph { aspect-ratio: 9 / 16; border-radius: 18px; box-shadow: 0 26px 60px -28px rgba(61, 11, 22, .55); }
     .reel[data-pos="0"] .reel-media:hover .play { transform: translate(-50%, -50%) scale(1.1); background: var(--dourado); }
     .reel:not([data-pos="0"]) .play { opacity: 0; }
-    .reel:not([data-pos="0"]) .reel-title, .reel:not([data-pos="0"]) .reel-context { opacity: 0; }
+    .reel:not([data-pos="0"]) .reel-context { opacity: 0; }
+    /* Nome da marca em cima de cada vídeo */
+    .reel-brand {
+      font-family: var(--head); font-weight: 800; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .02em;
+      color: var(--texto); margin: 0 0 14px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .reel-context { margin-top: 10px; }
     .reels-nav {
       position: absolute; top: 38%; z-index: 5; width: 44px; height: 44px; border-radius: 50%;
       display: grid; place-items: center; cursor: pointer; color: var(--texto);
@@ -1777,13 +1783,13 @@
     $('#reels').innerHTML = HIGHLIGHTS.map((h, i) =>
       // A capa é um link: o endereço vem de h.link e a imagem de h.capa (veja o array HIGHLIGHTS)
       '<div class="reel" data-i="' + i + '">' +
+        '<h3 class="reel-brand">' + esc(h.titulo) + '</h3>' +
         '<a class="reel-media" href="' + esc(h.link) + '" target="_blank" rel="noopener" aria-label="Assistir ' + esc(h.titulo) + ', ' + esc(h.numero) + ' ' + esc(h.rotulo) + ' (abre o Instagram)">' +
           mediaHTML(h.capa, 'capa do reels 9:16', 'Capa do vídeo ' + h.titulo, i % 2 ? 'alt' : '', h) + playIcon + '</div>' +
         '</a>' +
         '<div class="reel-body">' +
           '<div class="reel-number">' + esc(h.numero) + '</div>' +
           '<div class="reel-label">' + esc(h.rotulo) + '</div>' +
-          '<h3 class="reel-title">' + esc(h.titulo) + '</h3>' +
           '<p class="reel-context">' + esc(h.contexto) + '</p>' +
         '</div>' +
       '</div>'
