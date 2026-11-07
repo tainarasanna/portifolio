@@ -308,8 +308,14 @@
     .signature { margin-top: 30px; display: flex; flex-direction: column; }
     .signature .sign { font-family: var(--head); font-style: italic; font-weight: 800; font-size: 2rem; color: var(--dourado); letter-spacing: -.02em; }
     .signature small { color: var(--muted); font-size: .88rem; }
-    .signature small.local { display: inline-flex; align-items: center; gap: 5px; margin-top: 4px; }
-    .signature small.local svg { width: 14px; height: 14px; color: var(--dourado); flex: none; }
+    .sign-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+    .local-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px;
+      background: var(--card, rgba(255, 252, 247, .6)); border: 1px solid var(--border); color: var(--texto);
+      font-family: var(--label); font-size: .82rem; font-weight: 600; letter-spacing: .02em; white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(59, 10, 18, .08);
+    }
+    .local-pill svg { width: 15px; height: 15px; color: var(--dourado); flex: none; }
 
     /* ===================== 3. DESTAQUES ===================== */
     .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -767,9 +773,11 @@
             <li class="glass reveal d3"><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> Entrega em até 72h úteis após aprovação do roteiro</li>
           </ul>
           <div class="signature reveal">
-            <span class="sign">Tainara Sanna</span>
+            <div class="sign-row">
+              <span class="sign">Tainara Sanna</span>
+              <span class="local-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Capão da Canoa/RS</span>
+            </div>
             <small>Creator UGC e Influencer · @tainarasanna</small>
-            <small class="local"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Capão da Canoa/RS</small>
           </div>
         </div>
       </div>
