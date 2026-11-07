@@ -1205,15 +1205,6 @@
       contexto: 'Unboxing, degustação e review da experiência'
     },
     {
-      link: 'https://www.instagram.com/reel/Dad_wAbO3wE/',
-      capa: 'fotos/destaque-2.jpg',
-      video: '', inicio: 0, fim: 0,
-      numero: '+32 mil',
-      rotulo: 'views no reels',
-      titulo: 'Lareira ecológica',
-      contexto: 'Problema x solução, com review'
-    },
-    {
       link: 'https://www.instagram.com/reel/DSGICozDoUp/',
       capa: 'fotos/destaque-academia.jpg',
       video: '', inicio: 0, fim: 0,
@@ -1221,6 +1212,15 @@
       rotulo: 'views no reels',
       titulo: 'Academia Beira Mar',
       contexto: 'Vlog de experiência'
+    },
+    {
+      link: 'https://www.instagram.com/reel/Dad_wAbO3wE/',
+      capa: 'fotos/destaque-2.jpg',
+      video: '', inicio: 0, fim: 0,
+      numero: '+32 mil',
+      rotulo: 'views no reels',
+      titulo: 'Lareira ecológica',
+      contexto: 'Problema x solução, com review'
     }
   ];
 
@@ -1754,7 +1754,8 @@
       const reelEls = Array.from($('#reels').children);
       const n = reelEls.length;
       if (!n) return;
-      let ativo = Math.min(1, n - 1);
+      // O primeiro de HIGHLIGHTS fica no meio; o segundo à direita e o último à esquerda
+      let ativo = 0;
       function posicionar() {
         reelEls.forEach((el, i) => {
           let d = (i - ativo + n) % n;
