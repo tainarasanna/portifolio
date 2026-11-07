@@ -265,17 +265,29 @@
     /* Faixa de marcas */
     .brands-strip {
       margin-top: 72px; border-block: 1px solid var(--border); background: rgba(255, 252, 247, .4);
-      overflow: hidden; padding: 18px 0;
+      overflow: hidden; padding: 22px 0 26px;
     }
-    .brands-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .brands-strip-label {
+      text-align: center; font-family: var(--label); font-weight: 600; font-size: .72rem; text-transform: uppercase;
+      letter-spacing: .24em; color: var(--muted); margin: 0 16px 16px;
+    }
+    .brands-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
     .brands-strip:hover .brands-track { animation-play-state: paused; }
-    .brands-list { display: flex; align-items: center; flex: none; }
-    .brands-list li {
-      font-family: var(--label); font-weight: 600; font-size: 1rem; text-transform: uppercase;
-      letter-spacing: .06em; color: var(--muted); white-space: nowrap; padding: 0 22px;
-      display: flex; align-items: center; gap: 22px;
+    .brands-list { display: flex; align-items: center; flex: none; gap: 14px; padding-right: 14px; }
+    /* Logos redondos nas cores originais */
+    .brand-circle {
+      width: 92px; height: 92px; flex: none; border-radius: 50%; overflow: hidden;
+      background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 14px rgba(20, 4, 8, .18);
+      display: grid; place-items: center; padding: 14px; transition: transform .25s ease;
     }
-    .brands-list li::after { content: "✦"; color: var(--dourado); font-size: .8rem; }
+    .brand-circle:hover { transform: scale(1.06); }
+    .brand-circle img { width: 100%; height: 100%; object-fit: contain; }
+    .brand-circle.cheio { padding: 0; }
+    .brand-circle.cheio img { object-fit: cover; }
+    .brand-circle span {
+      font-family: var(--head); font-size: .95rem; line-height: 1.1; text-align: center; color: #3b0a12;
+    }
+    @media (max-width: 700px) { .brand-circle { width: 72px; height: 72px; padding: 11px; } .brand-circle span { font-size: .8rem; } }
     @keyframes marquee { to { transform: translateX(-50%); } }
 
     /* ===================== 2. SOBRE ===================== */
@@ -726,6 +738,7 @@
 
       <!-- Faixa de marcas: os nomes vêm do array BRANDS no script -->
       <div class="brands-strip" aria-label="Marcas com quem já trabalhei">
+        <p class="brands-strip-label">Marcas que confiam no meu trabalho</p>
         <div class="brands-track" id="brands-track"></div>
       </div>
     </section>
@@ -1066,6 +1079,30 @@
     { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png', fundo: 'claro' }
   ];
 
+  // Faixa de logos redondos logo abaixo da capa, nas cores originais de cada marca.
+  // cheio: true quando o logo já vem com fundo próprio (quadrado) e deve preencher o círculo inteiro.
+  // escala (opcional): aumenta um logo que ficou pequeno dentro do círculo (ex.: 1.4). cor (opcional): cor de fundo do círculo.
+  // Sem logo, aparece o nome escrito dentro do círculo.
+  const BRAND_CIRCLES = [
+    { marca: 'Eudora', logo: 'fotos/logo-eudora.png', cheio: true, cor: '#613A53', escala: 0.86 },
+    { marca: 'Domidona', logo: 'fotos/logo-domidona.jpg', cheio: true },
+    { marca: 'Arvensis', logo: 'fotos/logo-arvensis.webp', cheio: true },
+    { marca: 'Vivo', logo: 'fotos/logo-vivo.jpg', cheio: true },
+    { marca: 'Acquaflora', logo: 'fotos/logo-acquaflora.png', cheio: true },
+    { marca: 'Pantene', logo: 'fotos/logo-pantene.jpg' },
+    { marca: 'Camarão na Caixa', logo: 'fotos/logo-camarao.jpg', cheio: true },
+    { marca: 'DaBelle' },
+    { marca: 'SBP', logo: 'fotos/logo-sbp.jpg', cheio: true },
+    { marca: 'Néctar Alimentos', logo: 'fotos/logo-nectar.webp', escala: 1.25 },
+    { marca: 'Academia Beira Mar', logo: 'fotos/logo-beiramar.jpg', cheio: true },
+    { marca: 'Stephanie Pioner Biomédica Tricologista', logo: 'fotos/logo-stephanie.png', escala: 1.5 },
+    { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/logo-bruna.jpg', cheio: true },
+    { marca: 'Mylipo' },
+    { marca: 'Auris Saúde e Estética', logo: 'fotos/logo-auris.webp', escala: 1.6 },
+    { marca: 'New Labs Vitta', logo: 'fotos/logo-newlabs-cor.png', escala: 1.35 },
+    { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png' }
+  ];
+
   // Conteúdos de destaque.
   // link: AQUI ENTRA O LINK DO VÍDEO (o card inteiro abre esse endereço).
   // capa: AQUI ENTRA A CAPA. Coloque o caminho de uma imagem vertical 9:16 (ex.: 'imagens/destaque-1.jpg').
@@ -1299,6 +1336,7 @@
     'com um único vídeo': 'from a single video',
     'Marcas com quem já trabalhei': 'Brands I have worked with',
     'Marcas trabalhadas': 'Brands',
+    'Marcas que confiam no meu trabalho': 'Brands that trust my work',
     'vídeos entregues': 'videos delivered',
     'marcas atendidas': 'brands served',
     'views somadas': 'total views',
@@ -1587,8 +1625,11 @@
       '<div><dt>' + esc(m.rotulo) + '</dt><dd>' + counterHTML(m) + '</dd></div>'
     ).join('');
 
-    // Capa: faixa de marcas (a lista é duplicada para o movimento ficar contínuo)
-    const brandItems = BRANDS.map((b) => '<li>' + esc(b) + '</li>').join('');
+    // Capa: faixa de logos redondos (a lista é duplicada para o movimento ficar contínuo)
+    const brandItems = BRAND_CIRCLES.map((b) =>
+      '<li class="brand-circle' + (b.cheio ? ' cheio' : '') + '" title="' + esc(b.marca) + '"' + (b.cor ? ' style="background:' + esc(b.cor) + '"' : '') + '>' +
+        (b.logo ? '<img src="' + esc(b.logo) + '" alt="' + esc(b.marca) + '" loading="lazy"' + (b.escala ? ' style="transform:scale(' + Number(b.escala) + ')"' : '') + '>' : '<span>' + esc(b.marca) + '</span>') +
+      '</li>').join('');
     $('#brands-track').innerHTML =
       '<ul class="brands-list">' + brandItems + '</ul>' +
       '<ul class="brands-list" aria-hidden="true">' + brandItems + '</ul>';
