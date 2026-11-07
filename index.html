@@ -373,6 +373,7 @@
 
     /* Vídeo como capa (destaques e trabalhos) */
     .ph video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ph img.capa-yt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .ph:has(iframe.yt) .play { display: none; }   /* o próprio vídeo já mostra o play */
     .ph iframe.yt {
       /* Vídeo no tamanho original, ocupando o card inteiro */
@@ -1559,15 +1560,13 @@
     }
 
     function mediaHTML(src, legenda, alt, extraClass, clip) {
-      // Link do YouTube sem foto de capa: a capa vira o quadro do vídeo no segundo escolhido (inicio), parado.
-      // O vídeo carrega sem som, vai até esse segundo e é pausado na hora (sem reprodução automática).
+      // Link do YouTube sem foto de capa: a capa é uma foto limpa do vídeo no segundo escolhido (inicio),
+      // salva em fotos/capas/<código do vídeo>.jpg. O player do YouTube (com as informações dele)
+      // só carrega quando a pessoa clica para assistir.
       const yt = clip && !clip.video && !src ? youtubeId(clip.capaYoutube || clip.link) : '';
       if (yt) {
-        const inicio = Number(clip.inicio) || 0;
-        const params = 'autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&enablejsapi=1' +
-          (inicio ? '&start=' + inicio : '');
-        return '<div class="ph ' + (extraClass || '') + '"><iframe class="yt" src="https://www.youtube-nocookie.com/embed/' + yt + '?' + params +
-          '" data-inicio="' + inicio + '" title="' + esc(alt) + '" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen tabindex="-1" aria-hidden="true"></iframe>';
+        return '<div class="ph ' + (extraClass || '') + '" data-yt="' + yt + '"><img class="capa-yt" src="fotos/capas/' + yt + '.jpg" alt="' + esc(alt) +
+          '" loading="lazy" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + yt + '/oar2.jpg\'">';
       }
       if (clip && clip.video) {
         // Vídeo (.mp4) como capa: mostra o quadro do segundo escolhido (inicio), parado.
@@ -1674,8 +1673,18 @@
       const link = e.target.closest('.work-link');
       if (!link) return;
       const card = link.closest('.work');
-      const frame = card.querySelector('iframe.yt');
-      if (!frame) return;
+      let frame = card.querySelector('iframe.yt');
+      const ph = card.querySelector('.ph[data-yt]');
+      if (!frame && !ph) return;
+      if (!frame) {
+        // O player do YouTube só entra no card agora, no clique
+        frame = document.createElement('iframe');
+        frame.className = 'yt';
+        frame.title = card.querySelector('img.capa-yt') ? card.querySelector('img.capa-yt').alt : 'Vídeo';
+        frame.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+        frame.setAttribute('allowfullscreen', '');
+        ph.appendChild(frame);
+      }
       e.preventDefault();
       if (card.classList.contains('playing')) return;
       // Pausa o vídeo que estiver tocando em outro card
