@@ -262,6 +262,23 @@
     .float-badge .ic { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: var(--dourado); color: var(--sobre-dourado); }
     .float-badge .ic svg { width: 16px; height: 16px; }
 
+    /* Botão fixo "Tabela e pacotes" no canto de baixo */
+    .pacotes-float {
+      position: fixed; right: 22px; bottom: 22px; z-index: 90;
+      display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px 15px 22px; border-radius: 999px;
+      background: #3b0a12; color: #f3e8cc; text-decoration: none; font-weight: 600; font-size: 1rem; letter-spacing: .01em;
+      border: 1px solid rgba(210, 171, 102, .45); box-shadow: 0 16px 36px -10px rgba(44, 7, 13, .55);
+      transition: transform .25s ease, background .25s ease, color .25s ease, opacity .3s ease, visibility .3s ease;
+    }
+    .pacotes-float svg { width: 20px; height: 20px; color: #d2ab66; flex: none; transition: color .25s ease; }
+    .pacotes-float:hover { transform: translateY(-3px); background: #d2ab66; color: #2c070d; }
+    .pacotes-float:hover svg { color: #3b0a12; }
+    .pacotes-float.escondido { opacity: 0; visibility: hidden; transform: translateY(12px); }
+    @media (max-width: 700px) {
+      .pacotes-float { right: 14px; bottom: 14px; padding: 12px 18px 12px 16px; font-size: .92rem; gap: 9px; }
+      .pacotes-float svg { width: 18px; height: 18px; }
+    }
+
     /* Faixa do que eu faço, na quebra da capa (dourada, letras em vinho) */
     .servicos-strip {
       margin-top: 72px; overflow: hidden; padding: 11px 0;
@@ -1087,6 +1104,12 @@
     </div>
   </footer>
 
+  <!-- Botão fixo no canto da tela: leva até o formulário de contato (some quando o formulário está na tela) -->
+  <a class="pacotes-float" id="pacotes-float" href="#contato">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0L3.4 14.2A2 2 0 0 1 2.8 12.8V4.8A2 2 0 0 1 4.8 2.8h8a2 2 0 0 1 1.4.6l6.4 6.4a2 2 0 0 1 0 2.8ZM7.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>
+    Tabela e pacotes
+  </a>
+
   <!-- ===================== CARD DE CAPTURA: MÍDIA KIT ===================== -->
   <div class="modal" id="kit-modal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="kit-title" aria-describedby="kit-desc">
@@ -1457,6 +1480,7 @@
     'Marcas trabalhadas': 'Brands',
     'Marcas que confiam no meu trabalho': 'Brands that trust my work',
     'O que eu faço': 'What I do',
+    'Tabela e pacotes': 'Rates and packages',
     'UGC de conversão': 'Conversion UGC',
     'Criativos de alta performance': 'High performance creatives',
     'Roteiros estratégicos': 'Strategic scripts',
@@ -1835,6 +1859,31 @@
         if (Math.abs(dx) > 40) ir(dx < 0 ? 1 : -1);
       });
       posicionar();
+    })();
+
+    // Botão fixo "Tabela e pacotes": leva ao formulário e some enquanto o formulário está na tela
+    (function () {
+      const btn = $('#pacotes-float');
+      const contato = $('#contato');
+      if (!btn || !contato) return;
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contato.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Imagens que carregam no caminho podem empurrar a página: confere e acerta a posição no fim
+        let tentativas = 0;
+        const acertar = () => {
+          const topo = contato.getBoundingClientRect().top;
+          if (Math.abs(topo) > 140 && tentativas++ < 4) { contato.scrollIntoView({ behavior: 'smooth', block: 'start' }); setTimeout(acertar, 700); return; }
+          const campo = $('#c-name');
+          if (campo) campo.focus({ preventScroll: true });
+        };
+        setTimeout(acertar, 900);
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entradas) => {
+          entradas.forEach((en) => btn.classList.toggle('escondido', en.isIntersecting));
+        }, { threshold: 0.25 }).observe(contato);
+      }
     })();
 
     // Player do áudio de apresentação
