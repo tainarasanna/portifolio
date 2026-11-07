@@ -318,13 +318,62 @@
     .local-pill svg { width: 15px; height: 15px; color: var(--dourado); flex: none; }
 
     /* ===================== 3. DESTAQUES ===================== */
-    .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    /* Texto à esquerda, carrossel de vídeos à direita (o do meio em destaque, os dos lados apagados) */
+    .destaques-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.25fr); gap: 56px; align-items: center; }
+    .destaques-text .section-title { margin-top: 14px; }
+    .destaques-text .section-intro { margin-top: 18px; max-width: 440px; }
+    .reels-carousel { position: relative; overflow: hidden; padding: 6px 0 10px; }
+    .reels { display: grid; justify-items: center; }
     .reel {
-      display: flex; flex-direction: column; text-decoration: none; padding: 12px 12px 22px;
-      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+      grid-area: 1 / 1; width: min(300px, 60%); display: flex; flex-direction: column; text-align: center;
+      transition: transform .55s cubic-bezier(.2, .7, .2, 1), opacity .55s ease, filter .55s ease;
+      transform: translateX(0) scale(.82); opacity: 0; filter: blur(2px) saturate(.6); pointer-events: none; z-index: 1;
     }
-    .reel:hover { transform: translateY(-6px); border-color: rgba(168, 120, 47, .6); box-shadow: 0 24px 60px -30px rgba(61, 11, 22, .45); }
-    .reel .ph { aspect-ratio: 9 / 16; border-radius: 16px; }
+    .reel[data-pos="0"] { transform: none; opacity: 1; filter: none; pointer-events: auto; z-index: 3; }
+    .reel[data-pos="-1"] { transform: translateX(-104%) scale(.84); opacity: .42; pointer-events: auto; cursor: pointer; z-index: 2; }
+    .reel[data-pos="1"] { transform: translateX(104%) scale(.84); opacity: .42; pointer-events: auto; cursor: pointer; z-index: 2; }
+    .reel-media { display: block; text-decoration: none; }
+    .reel .ph { aspect-ratio: 9 / 16; border-radius: 18px; box-shadow: 0 26px 60px -28px rgba(61, 11, 22, .55); }
+    .reel[data-pos="0"] .reel-media:hover .play { transform: translate(-50%, -50%) scale(1.1); background: var(--dourado); }
+    .reel:not([data-pos="0"]) .play { opacity: 0; }
+    .reel:not([data-pos="0"]) .reel-title, .reel:not([data-pos="0"]) .reel-context { opacity: 0; }
+    .reels-nav {
+      position: absolute; top: 38%; z-index: 5; width: 44px; height: 44px; border-radius: 50%;
+      display: grid; place-items: center; cursor: pointer; color: var(--texto);
+      background: var(--card, rgba(255, 252, 247, .85)); border: 1px solid var(--border);
+      box-shadow: 0 6px 18px rgba(59, 10, 18, .12); transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .reels-nav:hover { background: var(--dourado); color: var(--sobre-dourado); transform: scale(1.06); }
+    .reels-nav svg { width: 20px; height: 20px; }
+    .reels-nav.prev { left: 6px; }
+    .reels-nav.next { right: 6px; }
+
+    /* Player de áudio (mensagem de apresentação) */
+    .audio-card {
+      margin-top: 30px; max-width: 460px; display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 22px;
+    }
+    .audio-card[hidden] { display: none; }
+    .audio-play {
+      width: 50px; height: 50px; flex: none; border-radius: 50%; border: 0; cursor: pointer;
+      display: grid; place-items: center; background: var(--texto); color: #f3e8cc; transition: transform .2s ease, background .2s ease;
+    }
+    .audio-play:hover { transform: scale(1.05); background: var(--dourado); color: var(--sobre-dourado); }
+    .audio-play svg { width: 20px; height: 20px; }
+    .audio-play .ic-pause { display: none; }
+    .audio-card.tocando .audio-play .ic-play { display: none; }
+    .audio-card.tocando .audio-play .ic-pause { display: block; }
+    .audio-main { flex: 1; min-width: 0; }
+    .audio-wave { display: flex; align-items: center; gap: 3px; height: 30px; cursor: pointer; }
+    .audio-wave i { flex: 1; min-width: 2px; border-radius: 3px; background: rgba(168, 120, 47, .35); transition: background .15s ease; }
+    .audio-wave i.ouvido { background: var(--dourado); }
+    .audio-times { display: flex; justify-content: space-between; margin-top: 6px; font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .audio-side { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; }
+    .audio-speed {
+      border: 0; cursor: pointer; border-radius: 8px; padding: 3px 7px; font-size: .72rem; font-weight: 700;
+      background: rgba(168, 120, 47, .14); color: var(--dourado-texto); font-family: inherit;
+    }
+    .audio-side svg { width: 16px; height: 16px; color: var(--muted); }
     .play {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center;
@@ -616,7 +665,8 @@
       .about-grid { grid-template-columns: 1fr; gap: 44px; }
       .about-photo { max-width: 420px; width: 100%; margin-inline: auto; }
       .about-photo .sticker { right: 8px; }
-      .reels { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+      .destaques-grid { grid-template-columns: 1fr; gap: 36px; }
+      .reel { width: min(280px, 64%); }
       .results { grid-template-columns: 1fr; }
       .testimonials { grid-template-columns: 1fr; }
       .logo-grid { grid-template-columns: repeat(3, 1fr); }
@@ -785,14 +835,34 @@
 
     <!-- ===================== 3. CONTEÚDOS DE DESTAQUE ===================== -->
     <section id="destaques" aria-labelledby="destaques-title">
-      <div class="container">
-        <div class="section-head">
+      <div class="container destaques-grid">
+        <div class="destaques-text">
           <span class="eyebrow reveal">Conteúdos de destaque</span>
           <h2 class="section-title reveal d1" id="destaques-title">Vídeos que despertam interesse, geram conexão e <span class="hl">valorizam marcas</span></h2>
           <p class="section-intro reveal d2">Clique em qualquer card para assistir no Instagram.</p>
+          <!-- Player do áudio de apresentação: o arquivo vem de AUDIO no script (fica escondido enquanto não houver áudio) -->
+          <div class="audio-card glass reveal d3" id="audio-card" hidden>
+            <button class="audio-play" type="button" aria-label="Ouvir áudio de apresentação">
+              <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <div class="audio-main">
+              <div class="audio-wave" id="audio-wave" aria-hidden="true"></div>
+              <div class="audio-times"><span id="audio-atual">0:00</span><span id="audio-total">0:00</span></div>
+            </div>
+            <div class="audio-side">
+              <button class="audio-speed" type="button" aria-label="Velocidade do áudio">1x</button>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg>
+            </div>
+            <audio id="audio-el" preload="metadata"></audio>
+          </div>
         </div>
-        <!-- Os três cards são montados pelo array HIGHLIGHTS no script (link do vídeo e capa ficam lá) -->
-        <div class="reels" id="reels"></div>
+        <!-- Os cards são montados pelo array HIGHLIGHTS no script (link do vídeo e capa ficam lá) -->
+        <div class="reels-carousel reveal d2">
+          <div class="reels" id="reels"></div>
+          <button class="reels-nav prev" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+          <button class="reels-nav next" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
       </div>
     </section>
 
@@ -1154,6 +1224,11 @@
     }
   ];
 
+  // Áudio de apresentação (aparece ao lado dos destaques). Coloque o arquivo na pasta "audios"
+  // e escreva o caminho aqui (ex.: 'audios/apresentacao.mp3'). Vazio (''), o player fica escondido.
+  // velocidade: a velocidade em que o áudio começa a tocar (1, 1.5 ou 2).
+  const AUDIO = { arquivo: 'audios/apresentacao.m4a', velocidade: 1.5 };
+
   // Nichos que aparecem nos botões de filtro (a chave é usada nos trabalhos abaixo).
   const NICHES = {
     haircare: 'Hair care',
@@ -1383,6 +1458,10 @@
     'Vídeos que despertam interesse, geram conexão e': 'Videos that spark interest, build connection and',
     'valorizam marcas': 'add value to brands',
     'Clique em qualquer card para assistir no Instagram.': 'Click any card to watch it on Instagram.',
+    'Vídeo anterior': 'Previous video',
+    'Próximo vídeo': 'Next video',
+    'Ouvir áudio de apresentação': 'Play intro audio',
+    'Velocidade do áudio': 'Audio speed',
     'views no reels': 'reel views',
     '+45 mil': '+45K',
     '+32 mil': '+32K',
@@ -1656,17 +1735,103 @@
     // Destaques
     const playIcon = '<span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
     $('#reels').innerHTML = HIGHLIGHTS.map((h, i) =>
-      // O card inteiro é um link: o endereço vem de h.link e a capa de h.capa (veja o array HIGHLIGHTS)
-      '<a class="reel glass reveal d' + (i + 1) + '" href="' + esc(h.link) + '" target="_blank" rel="noopener" aria-label="Assistir ' + esc(h.titulo) + ', ' + esc(h.numero) + ' ' + esc(h.rotulo) + ' (abre o Instagram)">' +
-        mediaHTML(h.capa, 'capa do reels 9:16', 'Capa do vídeo ' + h.titulo, i % 2 ? 'alt' : '', h) + playIcon + '</div>' +
+      // A capa é um link: o endereço vem de h.link e a imagem de h.capa (veja o array HIGHLIGHTS)
+      '<div class="reel" data-i="' + i + '">' +
+        '<a class="reel-media" href="' + esc(h.link) + '" target="_blank" rel="noopener" aria-label="Assistir ' + esc(h.titulo) + ', ' + esc(h.numero) + ' ' + esc(h.rotulo) + ' (abre o Instagram)">' +
+          mediaHTML(h.capa, 'capa do reels 9:16', 'Capa do vídeo ' + h.titulo, i % 2 ? 'alt' : '', h) + playIcon + '</div>' +
+        '</a>' +
         '<div class="reel-body">' +
           '<div class="reel-number">' + esc(h.numero) + '</div>' +
           '<div class="reel-label">' + esc(h.rotulo) + '</div>' +
           '<h3 class="reel-title">' + esc(h.titulo) + '</h3>' +
           '<p class="reel-context">' + esc(h.contexto) + '</p>' +
         '</div>' +
-      '</a>'
+      '</div>'
     ).join('');
+
+    // Carrossel dos destaques: o vídeo do meio fica em evidência; setas, toque nos laterais ou arrastar trocam
+    (function () {
+      const reelEls = Array.from($('#reels').children);
+      const n = reelEls.length;
+      if (!n) return;
+      let ativo = Math.min(1, n - 1);
+      function posicionar() {
+        reelEls.forEach((el, i) => {
+          let d = (i - ativo + n) % n;
+          if (d > n / 2) d -= n;
+          el.dataset.pos = Math.abs(d) > 1 ? 'fora' : String(d);
+          const link = el.querySelector('.reel-media');
+          link.tabIndex = d === 0 ? 0 : -1;
+          el.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
+        });
+      }
+      const ir = (passo) => { ativo = (ativo + passo + n) % n; posicionar(); };
+      $('.reels-nav.prev').addEventListener('click', () => ir(-1));
+      $('.reels-nav.next').addEventListener('click', () => ir(1));
+      if (n < 2) document.querySelectorAll('.reels-nav').forEach((b) => { b.hidden = true; });
+      // Clicar num vídeo lateral traz ele para o meio (em vez de abrir o link)
+      $('#reels').addEventListener('click', (e) => {
+        const el = e.target.closest('.reel');
+        if (!el || el.dataset.pos === '0') return;
+        e.preventDefault();
+        ativo = Number(el.dataset.i);
+        posicionar();
+      });
+      // Arrastar para os lados no celular
+      let x0 = null;
+      $('#reels').addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      $('#reels').addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        x0 = null;
+        if (Math.abs(dx) > 40) ir(dx < 0 ? 1 : -1);
+      });
+      posicionar();
+    })();
+
+    // Player do áudio de apresentação
+    (function () {
+      const card = $('#audio-card');
+      if (!AUDIO.arquivo || !card) return;
+      const audio = $('#audio-el');
+      const wave = $('#audio-wave');
+      const barras = 42;
+      // Alturas fixas das barrinhas (formato de onda decorativo)
+      let semente = 7;
+      const alturas = Array.from({ length: barras }, () => { semente = (semente * 9301 + 49297) % 233280; return 28 + Math.round((semente / 233280) * 72); });
+      wave.innerHTML = alturas.map((a) => '<i style="height:' + a + '%"></i>').join('');
+      const bars = Array.from(wave.children);
+      const tempo = (s) => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+      audio.src = AUDIO.arquivo;
+      card.hidden = false;
+      audio.addEventListener('loadedmetadata', () => { $('#audio-total').textContent = tempo(audio.duration); });
+      audio.addEventListener('timeupdate', () => {
+        $('#audio-atual').textContent = tempo(audio.currentTime);
+        const p = audio.duration ? audio.currentTime / audio.duration : 0;
+        bars.forEach((b, i) => b.classList.toggle('ouvido', i / barras < p));
+      });
+      audio.addEventListener('play', () => card.classList.add('tocando'));
+      audio.addEventListener('pause', () => card.classList.remove('tocando'));
+      audio.addEventListener('ended', () => card.classList.remove('tocando'));
+      $('.audio-play', card).addEventListener('click', () => { if (audio.paused) audio.play(); else audio.pause(); });
+      wave.addEventListener('click', (e) => {
+        if (!audio.duration) return;
+        const r = wave.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+      });
+      const velocidades = [1, 1.5, 2];
+      const velBtn = $('.audio-speed', card);
+      const velInicial = velocidades.includes(Number(AUDIO.velocidade)) ? Number(AUDIO.velocidade) : 1;
+      audio.defaultPlaybackRate = velInicial;
+      audio.playbackRate = velInicial;
+      audio.addEventListener('loadedmetadata', () => { audio.playbackRate = velInicial; }, { once: true });
+      velBtn.textContent = String(velInicial).replace('.', ',') + 'x';
+      velBtn.addEventListener('click', (e) => {
+        const v = velocidades[(velocidades.indexOf(audio.playbackRate) + 1) % velocidades.length];
+        audio.playbackRate = v;
+        e.currentTarget.textContent = String(v).replace('.', ',') + 'x';
+      });
+    })();
 
     // Trabalhos + filtros
     const filtersEl = $('#filters');
