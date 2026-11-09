@@ -347,6 +347,9 @@
       box-shadow: 0 4px 14px rgba(92, 15, 29, .08);
     }
     .local-pill svg { width: 15px; height: 15px; color: var(--dourado); flex: none; }
+    .contato-pill { background: var(--dourado); border-color: var(--dourado); color: var(--sobre-dourado); text-decoration: none; transition: transform .2s, opacity .2s; }
+    .contato-pill svg { color: var(--sobre-dourado); }
+    .contato-pill:hover { transform: translateY(-1px); opacity: .9; }
 
     /* ===================== 3. DESTAQUES ===================== */
     /* Texto à esquerda, carrossel de vídeos à direita (o do meio em destaque, os dos lados apagados) */
@@ -911,6 +914,7 @@
             <div class="sign-row">
               <span class="sign">Tainara Sanna</span>
               <span class="local-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Capão da Canoa/RS</span>
+              <a class="local-pill contato-pill" href="#contato"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Contato</a>
             </div>
             <small>Creator UGC e Influencer · @tainarasanna</small>
           </div>
