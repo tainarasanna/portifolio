@@ -456,7 +456,25 @@
     .works-empty { color: var(--muted); padding: 30px 0; }
 
     /* ===================== FOTOS UGC ===================== */
-    .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    /* Carrossel de uma linha: a pessoa passa para o lado (setas ou dedo) e clica na foto para ampliar */
+    .photos-carousel { position: relative; }
+    .photos {
+      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      padding: 4px 2px 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .photos::-webkit-scrollbar { display: none; }
+    .photos .photo { flex: 0 0 calc((100% - 48px) / 4); scroll-snap-align: start; }
+    .fotos-nav {
+      position: absolute; top: 50%; z-index: 5; width: 44px; height: 44px; margin-top: -26px; border-radius: 50%;
+      display: grid; place-items: center; cursor: pointer; color: var(--texto);
+      background: rgba(255, 255, 255, .94); border: 1px solid var(--border);
+      box-shadow: 0 6px 18px rgba(92, 15, 29, .14); transition: background .2s ease, color .2s ease, opacity .2s ease;
+    }
+    .fotos-nav:hover { background: var(--dourado); color: var(--sobre-dourado); }
+    .fotos-nav svg { width: 20px; height: 20px; }
+    .fotos-nav.prev { left: -14px; }
+    .fotos-nav.next { right: -14px; }
+    .fotos-nav[disabled] { opacity: 0; pointer-events: none; }
     .photo {
       position: relative; padding: 0; border: 1px solid var(--border); border-radius: var(--radius-sm);
       overflow: hidden; cursor: zoom-in; background: var(--card); aspect-ratio: 4 / 5;
@@ -720,7 +738,11 @@
       .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 10px 16px; }
       .hero-actions .btn { flex: 1 1 100%; }
       .works { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .photos { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .photos { gap: 10px; }
+      .photos .photo { flex-basis: 44%; }
+      .fotos-nav { width: 38px; height: 38px; margin-top: -23px; }
+      .fotos-nav.prev { left: -6px; }
+      .fotos-nav.next { right: -6px; }
       .work { padding: 8px 8px 14px; }
       .work-brand { font-size: .95rem; }
       .brand { font-size: 1rem; }
@@ -985,7 +1007,11 @@
         </div>
         <!-- As fotos vêm do array PHOTOS no script -->
         <div class="filters reveal" id="photo-filters" role="group" aria-label="Filtrar fotos por nicho"></div>
-        <div class="photos" id="photos"></div>
+        <div class="photos-carousel">
+          <button type="button" class="fotos-nav prev" aria-label="Fotos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div class="photos" id="photos"></div>
+          <button type="button" class="fotos-nav next" aria-label="Próximas fotos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
       </div>
     </section>
 
@@ -1582,6 +1608,8 @@
     'Clique em qualquer card para assistir no Instagram.': 'Click any card to watch it on Instagram.',
     'Vídeo anterior': 'Previous video',
     'Próximo vídeo': 'Next video',
+    'Fotos anteriores': 'Previous photos',
+    'Próximas fotos': 'Next photos',
     'Ouvir áudio de apresentação': 'Play intro audio',
     'Velocidade do áudio': 'Audio speed',
     'views no reels': 'reel views',
@@ -2135,7 +2163,22 @@
         ph.classList.remove('fade-in');
         if (match && !reduceMotion) { void ph.offsetWidth; ph.classList.add('fade-in'); }
       });
+      photosEl.scrollLeft = 0;
+      setasFotos();
     });
+    // Setas do carrossel de fotos: andam quase uma tela de fotos por clique
+    const fotoPrev = $('.fotos-nav.prev'), fotoNext = $('.fotos-nav.next');
+    function setasFotos() {
+      const max = photosEl.scrollWidth - photosEl.clientWidth;
+      fotoPrev.disabled = photosEl.scrollLeft <= 4;
+      fotoNext.disabled = photosEl.scrollLeft >= max - 4;
+    }
+    const passoFotos = () => Math.max(photosEl.clientWidth * .9, 200);
+    fotoPrev.addEventListener('click', () => photosEl.scrollBy({ left: -passoFotos() }));
+    fotoNext.addEventListener('click', () => photosEl.scrollBy({ left: passoFotos() }));
+    photosEl.addEventListener('scroll', setasFotos, { passive: true });
+    window.addEventListener('resize', setasFotos);
+    setasFotos();
 
     // Audiência e alcance: prints agrupados (clicar amplia)
     $('#insights').innerHTML = INSIGHT_GROUPS.map((g) => {
