@@ -614,6 +614,24 @@
     .wm-italic { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 1.6rem; letter-spacing: -.01em; }
     .wm-sport { font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-style: italic; font-size: 1.4rem; letter-spacing: -.04em; }
     .wm-leve { font-family: Arial, 'Helvetica Neue', sans-serif; font-weight: 400; }
+    /* Parede de logos compacta: todas as marcas num espaço pequeno */
+    .logo-wall { margin-top: 24px; padding: 18px 22px 20px; }
+    .logo-wall .logo-wall-title { font-size: clamp(1rem, 1.7vw, 1.25rem); }
+    .logo-wall .logo-grid { margin-top: 12px; grid-template-columns: repeat(9, 1fr); gap: 8px 14px; }
+    .logo-wall .logo-grid::after { inset: -8px 0; }
+    .logo-wall .logo-item { min-height: 50px; }
+    .logo-wall .logo-item img { max-width: 64px; }
+    .logo-wall .wm-serif { font-size: .85rem; }
+    .logo-wall .wm-caps { font-size: .6rem; letter-spacing: .14em; }
+    .logo-wall .wm-bold, .logo-wall .wm-sport { font-size: .78rem; }
+    .logo-wall .wm-italic { font-size: .85rem; }
+    @media (max-width: 900px) { .logo-wall .logo-grid { grid-template-columns: repeat(6, 1fr); } }
+    @media (max-width: 560px) {
+      .logo-wall { padding: 14px 14px 16px; }
+      .logo-wall .logo-grid { grid-template-columns: repeat(4, 1fr); gap: 6px 10px; }
+      .logo-wall .logo-item { min-height: 44px; }
+      .logo-wall .logo-item img { max-width: 56px; }
+    }
     /* Depoimentos em duas colunas; cada card só com a altura que o texto precisa */
     .testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
     .testimonials-col { display: grid; gap: 20px; align-content: start; }
