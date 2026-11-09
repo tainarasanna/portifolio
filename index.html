@@ -618,7 +618,10 @@
     .logo-wall { margin-top: 24px; padding: 18px 22px 20px; }
     .logo-wall .logo-wall-title { font-size: clamp(1rem, 1.7vw, 1.25rem); }
     .logo-wall .logo-grid { margin-top: 14px; grid-template-columns: repeat(7, 1fr); gap: 10px 18px; }
-    .logo-wall .logo-grid::after { inset: -8px 0; }
+    /* Logos já vêm prontos (sem fundo, em bordô), sem efeitos de cor que o iPhone não aplica igual */
+    .logo-wall .logo-grid::after { display: none; }
+    .logo-wall .logo-item { color: var(--texto); }
+    .logo-wall .logo-item img { filter: none; mix-blend-mode: normal; clip-path: none; }
     .logo-wall .logo-item { min-height: 66px; }
     .logo-wall .logo-item img { max-width: 92px; }
     .logo-wall .wm-serif { font-size: 1.1rem; }
@@ -631,6 +634,7 @@
       .logo-wall .logo-grid { grid-template-columns: repeat(3, 1fr); gap: 8px 12px; }
       .logo-wall .logo-item { min-height: 58px; }
       .logo-wall .logo-item img { max-width: 80px; }
+      .logo-wall .wm-bold, .logo-wall .wm-sport { font-size: .84rem; overflow-wrap: normal; white-space: nowrap; }
     }
     /* Depoimentos em duas colunas; cada card só com a altura que o texto precisa */
     /* Avaliações em carrossel de uma linha (setas ou dedo), cards compactos */
@@ -1309,23 +1313,23 @@
   // Sem logo, aparece o nome escrito em preto. estilo: 'serif', 'caps', 'bold', 'italic' ou 'sport'.
   //       texto (opcional): como o nome aparece escrito. leve (opcional): pedaço do texto em letra fina. sub: linha pequena embaixo (opcional).
   const BRAND_WALL = [
-    { marca: 'Eudora', logo: 'fotos/logo-eudora.png', tamanho: 2.4 },
-    { marca: 'Arvensis', logo: 'fotos/logo-arvensis.webp', fundo: 'claro' },
-    { marca: 'Acquaflora', logo: 'fotos/logo-acquaflora.png', tamanho: 1.1 },
-    { marca: 'Domidona', logo: 'fotos/logo-domidona.jpg' },
-    { marca: 'Vivo', logo: 'fotos/logo-vivo.jpg' },
+    { marca: 'Eudora', logo: 'fotos/marca-eudora.png', tamanho: 2.4 },
+    { marca: 'Arvensis', logo: 'fotos/marca-arvensis.png' },
+    { marca: 'Acquaflora', logo: 'fotos/marca-acquaflora.png', tamanho: 1.1 },
+    { marca: 'Domidona', logo: 'fotos/marca-domidona.png' },
+    { marca: 'Vivo', logo: 'fotos/marca-vivo.png' },
     { marca: 'DaBelle', estilo: 'italic' },
     { marca: 'Mylipo', estilo: 'bold' },
-    { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/logo-bruna.jpg', fundo: 'claro', tamanho: 1.15 },
-    { marca: 'Pantene', logo: 'fotos/logo-pantene.jpg', fundo: 'claro' },
-    { marca: 'Camarão na Caixa', logo: 'fotos/logo-camarao.jpg' },
-    { marca: 'Auris Saúde e Estética', logo: 'fotos/logo-auris.webp', fundo: 'dourado', tamanho: 1.9 },
-    { marca: 'Néctar Alimentos', logo: 'fotos/logo-nectar.webp', fundo: 'claro' },
-    { marca: 'Stephanie Pioner Biomédica Tricologista', logo: 'fotos/logo-stephanie.png', fundo: 'claro', tamanho: 1.3 },
-    { marca: 'SBP', logo: 'fotos/logo-sbp.jpg', fundo: 'cor' },
-    { marca: 'Academia Beira Mar', logo: 'fotos/logo-beiramar.jpg' },
+    { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/marca-bruna.png', tamanho: 1.15 },
+    { marca: 'Pantene', logo: 'fotos/marca-pantene.png' },
+    { marca: 'Camarão na Caixa', logo: 'fotos/marca-camarao.png' },
+    { marca: 'Auris Saúde e Estética', logo: 'fotos/marca-auris.png', tamanho: 1.9 },
+    { marca: 'Néctar Alimentos', logo: 'fotos/marca-nectar.png' },
+    { marca: 'Stephanie Pioner Biomédica Tricologista', logo: 'fotos/marca-stephanie.png', tamanho: 1.3 },
+    { marca: 'SBP', logo: 'fotos/marca-sbp.png' },
+    { marca: 'Academia Beira Mar', logo: 'fotos/marca-beiramar.png' },
     { marca: 'New Labs Vitta', texto: 'NewLabsVitta', leve: 'Labs', estilo: 'sport' },
-    { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png', fundo: 'claro' },
+    { marca: 'Use Rahsia', logo: 'fotos/marca-rahsia.png' },
     { marca: 'Destrava UGC', texto: 'Destrava UGC', leve: 'UGC', estilo: 'bold' }
   ];
 
