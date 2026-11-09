@@ -1229,7 +1229,7 @@
     'Eudora', 'Arvensis', 'Acquaflora', 'Domidona', 'Vivo', 'DaBelle', 'Mylipo',
     'Bruna Derlam Moda Fitness', 'Pantene', 'Camarão na Caixa',
     'Auris Saúde e Estética | Damiele Kaiser', 'Néctar Alimentos',
-    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia'
+    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia', 'Destrava UGC'
   ];
 
   // Parede de logos ("Algumas marcas que fazem parte da minha história"), antes das avaliações.
@@ -1257,7 +1257,8 @@
     { marca: 'SBP', logo: 'fotos/logo-sbp.jpg', fundo: 'cor' },
     { marca: 'Academia Beira Mar', logo: 'fotos/logo-beiramar.jpg' },
     { marca: 'New Labs Vitta', texto: 'NewLabsVitta', leve: 'Labs', estilo: 'sport' },
-    { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png', fundo: 'claro' }
+    { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png', fundo: 'claro' },
+    { marca: 'Destrava UGC', texto: 'Destrava UGC', leve: 'UGC', estilo: 'bold' }
   ];
 
   // Faixa dourada na quebra da capa, com o que eu faço (passa sozinha, em loop).
@@ -1283,6 +1284,7 @@
     { marca: 'Néctar Alimentos', logo: 'fotos/logo-nectar-cor.png' },
     { marca: 'Domidona', logo: 'fotos/logo-domidona.jpg', cheio: true },
     { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png' },
+    { marca: 'Destrava UGC' },
     { marca: 'Camarão na Caixa', logo: 'fotos/logo-camarao.jpg', cheio: true },
     { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/logo-bruna.jpg', cheio: true },
     { marca: 'Academia Beira Mar', logo: 'fotos/logo-beiramar.jpg', cheio: true },
@@ -1347,7 +1349,8 @@
     fitness: 'Moda fitness',
     fit: 'Fitness',
     servicos: 'Serviços e experiências',
-    tech: 'Tech'
+    tech: 'Tech',
+    ugccanvas: 'UGC Canvas'
   };
 
   // Galeria de trabalhos. Confira se o nicho de cada marca está certo.
@@ -1488,6 +1491,7 @@
   const TESTIMONIALS = [
     { nome: 'Camarão na Caixa', empresa: 'Pratos Express', logo: 'fotos/logo-camarao.jpg', texto: 'Desde que fechamos essa parceria com a Tai, nosso Instagram só cresceu! 🥹 Estamos muito satisfeitos com todo o trabalho, a dedicação e a qualidade dos conteúdos produzidos. As fotos são impecáveis, os vídeos incríveis e tudo é feito com muito cuidado e profissionalismo. Além da qualidade dos conteúdos, estamos vendo os resultados na prática: nossos seguidores só aumentam e um dos vídeos produzidos por ela já ultrapassou 30 mil visualizações! 🚀 Somos muito felizes por ter fechado essa parceria e por contar com alguém que realmente faz a diferença no crescimento da nossa marca. Obrigada, Tai, por todo o trabalho e por contribuir tanto com a nossa evolução! 🍤🔥' },
     { nome: 'Bruna Derlam', empresa: 'Moda Fitness', logo: 'fotos/logo-bruna.jpg', texto: 'Taí é uma alegria ter você representando a Bruna Derlam Moda Fitness! 💙 Seu carinho e cuidado ao mostrar as peças fizeram toda a diferença. A forma leve e natural de se comunicar trouxe proximidade e representou muito bem a essência da marca. Obrigada por fazer parte da nossa história! Obrigada pela sua dedicação nos conteúdos.' },
+    { nome: 'Destrava UGC', empresa: 'Campanha de vídeos curtos', texto: 'Além de entregar um conteúdo incrível, exatamente como foi solicitado, a Tainara ainda finalizou tudo em menos de 24 horas! Surreal! Uma agilidade e uma qualidade de entrega que fazem toda a diferença 💗' },
     { nome: 'Domidona', empresa: 'Calçados', logo: 'fotos/logo-domidona.jpg', texto: 'Adoramos sua entrega! 💜 Você tem uma comunicação muito boa e transmite muita espontaneidade diante das câmeras. Os takes externos foram muito bem explorados e o conteúdo ficou criativo, bem elaborado e com uma apresentação super natural. Parabéns pelo trabalho! 💜' },
     { nome: 'Domidona', empresa: 'Tamanco Off White Laço', logo: 'fotos/logo-domidona.jpg', texto: 'Seguiu super bem a proposta da campanha e trouxe uma abordagem criativa e autêntica. 💜' },
     { nome: 'Acquaflora', empresa: 'Hair care', logo: 'fotos/logo-acquaflora.png', lado: 'direita', texto: 'Avaliação da empresa: 5/5, Excelente.' }
@@ -1736,6 +1740,9 @@
     'Mais de R$ 11 mil em uma semana na academia. Pela primeira vez, as vendas mantiveram a constância dos alunos mesmo no verão e nas festas de fim de ano.': 'More than R$ 11K in one week at the gym. For the first time, sales kept members consistent even through summer and the end of year holidays.',
     '5 de 5 estrelas': '5 out of 5 stars',
     'Calçados': 'Footwear',
+    'Campanha de vídeos curtos': 'Short video campaign',
+    'Além de entregar um conteúdo incrível, exatamente como foi solicitado, a Tainara ainda finalizou tudo em menos de 24 horas! Surreal! Uma agilidade e uma qualidade de entrega que fazem toda a diferença 💗':
+      'Besides delivering amazing content, exactly as requested, Tainara finished everything in less than 24 hours! Unreal! That speed and quality of delivery make all the difference 💗',
     'Desde que fechamos essa parceria com a Tai, nosso Instagram só cresceu! 🥹 Estamos muito satisfeitos com todo o trabalho, a dedicação e a qualidade dos conteúdos produzidos. As fotos são impecáveis, os vídeos incríveis e tudo é feito com muito cuidado e profissionalismo. Além da qualidade dos conteúdos, estamos vendo os resultados na prática: nossos seguidores só aumentam e um dos vídeos produzidos por ela já ultrapassou 30 mil visualizações! 🚀 Somos muito felizes por ter fechado essa parceria e por contar com alguém que realmente faz a diferença no crescimento da nossa marca. Obrigada, Tai, por todo o trabalho e por contribuir tanto com a nossa evolução! 🍤🔥':
       "Ever since we started this partnership with Tai, our Instagram has only grown! 🥹 We are very happy with all the work, the dedication and the quality of the content. The photos are flawless, the videos are amazing and everything is done with great care and professionalism. Beyond the quality of the content, we are seeing real results: our followers keep growing and one of the videos Tai made has already passed 30 thousand views! 🚀 We are so glad we started this partnership and have someone who truly makes a difference in our brand's growth. Thank you, Tai, for all your work and for contributing so much to our evolution! 🍤🔥",
     'Adoramos sua entrega! 💜 Você tem uma comunicação muito boa e transmite muita espontaneidade diante das câmeras. Os takes externos foram muito bem explorados e o conteúdo ficou criativo, bem elaborado e com uma apresentação super natural. Parabéns pelo trabalho! 💜':
