@@ -583,9 +583,8 @@
     .result p { color: var(--muted); margin-top: 10px; font-size: .93rem; }
     /* Marcas e avaliações */
     .reviews-head, #depoimentos { scroll-margin-top: 130px; }
-    .reviews-count { display: flex; align-items: baseline; gap: 14px; margin-top: 22px; }
-    .reviews-count .count { font-family: var(--head); font-size: clamp(2.4rem, 5vw, 3.2rem); color: var(--dourado); line-height: 1; }
-    .reviews-count small { color: var(--muted); font-size: 1rem; }
+    /* Total de marcas ao lado do título da parede de logos (ex.: +18) */
+    .marcas-total { color: var(--dourado); font-size: 1.45em; line-height: 1; margin-left: .2em; vertical-align: -.08em; white-space: nowrap; }
     .logo-wall {
       margin-top: 32px; padding: clamp(26px, 4vw, 48px); border-radius: var(--radius);
       background: #ffffff; color: #140609; border: 1px solid var(--border);
@@ -1064,10 +1063,9 @@
           <span class="eyebrow reveal">Marcas e avaliações</span>
           <h2 class="section-title reveal d1" id="avaliacoes-title">O que as marcas têm a <span class="hl">dizer</span></h2>
           <p class="section-intro reveal d2">Marcas que confiaram no meu trabalho e o que elas contam sobre essa parceria.</p>
-          <div class="reviews-count reveal d2" id="reviews-count"></div>
         </div>
         <div class="logo-wall reveal">
-          <h3 class="logo-wall-title">Algumas marcas que fazem parte da minha história.</h3>
+          <h3 class="logo-wall-title"><span>Algumas marcas que fazem parte da minha história.</span> <span class="marcas-total" id="reviews-count"></span></h3>
           <ul class="logo-grid" id="logo-grid"></ul>
         </div>
 
@@ -2291,7 +2289,7 @@
 
     // Marcas e avaliações: número de marcas (o mesmo das métricas) e a parede de logos
     const metricaMarcas = METRICS.find((m) => m.rotulo === 'marcas atendidas');
-    if (metricaMarcas) $('#reviews-count').innerHTML = counterHTML(metricaMarcas) + '<small>' + esc(metricaMarcas.rotulo) + '</small>';
+    if (metricaMarcas) $('#reviews-count').textContent = '+' + metricaMarcas.valor;
     $('#logo-grid').innerHTML = BRAND_WALL.map((b) => b.logo
       ? '<li class="logo-item"><img' + (b.fundo ? ' class="' + esc(b.fundo) + '"' : '') + (b.tamanho ? ' style="transform: scale(' + Number(b.tamanho) + ')"' : '') + ' src="' + esc(b.logo) + '" alt="' + esc(b.marca) + '" loading="lazy"></li>'
       : '<li class="logo-item wm-' + esc(b.estilo || 'serif') + '">' +
