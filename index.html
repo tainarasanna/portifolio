@@ -627,7 +627,8 @@
     .logo-wall .wm-caps { font-size: .75rem; letter-spacing: .14em; }
     .logo-wall .wm-bold, .logo-wall .wm-sport { font-size: 1rem; }
     .logo-wall .wm-italic { font-size: 1.1rem; }
-    @media (max-width: 900px) { .logo-wall .logo-grid { grid-template-columns: repeat(5, 1fr); } }
+    .logo-wall .wm-bold, .logo-wall .wm-sport { white-space: nowrap; overflow-wrap: normal; }
+    @media (max-width: 900px) { .logo-wall .logo-grid { grid-template-columns: repeat(5, 1fr); } .logo-wall .wm-bold, .logo-wall .wm-sport { font-size: .84rem; } }
     @media (max-width: 560px) {
       .logo-wall { padding: 14px 14px 16px; }
       .logo-wall .logo-grid { grid-template-columns: repeat(3, 1fr); gap: 8px 12px; }
@@ -1299,7 +1300,7 @@
     'Eudora', 'Arvensis', 'Acquaflora', 'Domidona', 'Vivo', 'DaBelle', 'Mylipo',
     'Bruna Derlam Moda Fitness', 'Pantene', 'Camarão na Caixa',
     'Auris Saúde e Estética | Damiele Kaiser', 'Néctar Alimentos',
-    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia', 'Destrava UGC', 'Amazon'
+    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia', 'Destrava UGC', 'Amazon', 'Green Express'
   ];
 
   // Parede de logos ("Algumas marcas que fazem parte da minha história"), antes das avaliações.
@@ -1329,7 +1330,8 @@
     { marca: 'Academia Beira Mar', logo: 'fotos/marca-beiramar.png' },
     { marca: 'New Labs Vitta', texto: 'NewLabsVitta', leve: 'Labs', estilo: 'sport' },
     { marca: 'Use Rahsia', logo: 'fotos/marca-rahsia.png' },
-    { marca: 'Destrava UGC', texto: 'Destrava UGC', leve: 'UGC', estilo: 'bold' }
+    { marca: 'Destrava UGC', texto: 'Destrava UGC', leve: 'UGC', estilo: 'bold' },
+    { marca: 'Green Express', logo: 'fotos/marca-greenexpress.svg', tamanho: 1.3 }
   ];
 
   // Faixa dourada na quebra da capa, com o que eu faço (passa sozinha, em loop).
@@ -1357,6 +1359,7 @@
     { marca: 'Domidona', logo: 'fotos/logo-domidona.jpg', cheio: true },
     { marca: 'Use Rahsia', logo: 'fotos/logo-rahsia.png' },
     { marca: 'Destrava UGC', logo: 'fotos/logo-destrava.png', cheio: true },
+    { marca: 'Green Express', logo: 'fotos/logo-greenexpress.svg', cor: '#1f6b3a', escala: 0.82 },
     { marca: 'Camarão na Caixa', logo: 'fotos/logo-camarao.jpg', cheio: true },
     { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/logo-bruna.jpg', cheio: true },
     { marca: 'Academia Beira Mar', logo: 'fotos/logo-beiramar.jpg', cheio: true },
@@ -1449,6 +1452,7 @@
     { nicho: 'autocuidado', marca: 'New Labs Vitta',  titulo: 'Biotina + Colágeno', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/Q4CiNSoh2dA', inicio: 32 },
      { nicho: 'casa', marca: 'SBP',  titulo: 'SBP Ultra Insetos Rasteiros', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/su3nI5cgWrU', inicio: 30 },
     { nicho: 'autocuidado', marca: 'Mylipo',          titulo: 'Drink Funcional | Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/5kCr1BoEFGM', inicio: 7 },
+    { nicho: 'autocuidado', marca: 'Green Express',   titulo: 'Green Gummy | Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/AT7XaOwg2QU', inicio: 14 },
     { nicho: 'fitness moda', marca: 'Bruna Derlam Moda Fitness', titulo: '5 ideias de look', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/2Nc-Pmy0zOQ', inicio: 23 },
     { nicho: 'moda',     marca: 'Domidona',           titulo: 'Sandália Salto Bloco | Review', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/QUN3mhRs7os', inicio: 5 },
     { nicho: 'moda',     marca: 'Look completo',      titulo: 'Transição', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/ULbW1dQeEgc', inicio: 1 },
