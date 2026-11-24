@@ -1299,7 +1299,7 @@
     'Eudora', 'Arvensis', 'Acquaflora', 'Domidona', 'Vivo', 'DaBelle', 'Mylipo',
     'Bruna Derlam Moda Fitness', 'Pantene', 'Camarão na Caixa',
     'Auris Saúde e Estética | Damiele Kaiser', 'Néctar Alimentos',
-    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia', 'Destrava UGC'
+    'Stephanie Pioner Biomédica Tricologista', 'SBP', 'Academia Beira Mar', 'New Labs Vitta', 'Use Rahsia', 'Destrava UGC', 'Amazon'
   ];
 
   // Parede de logos ("Algumas marcas que fazem parte da minha história"), antes das avaliações.
@@ -1316,6 +1316,7 @@
     { marca: 'Acquaflora', logo: 'fotos/marca-acquaflora.png', tamanho: 1.1 },
     { marca: 'Domidona', logo: 'fotos/marca-domidona.png' },
     { marca: 'Vivo', logo: 'fotos/marca-vivo.png' },
+    { marca: 'Amazon', logo: 'fotos/marca-amazon.png', tamanho: 1.2 },
     { marca: 'DaBelle', estilo: 'italic' },
     { marca: 'Mylipo', estilo: 'bold' },
     { marca: 'Bruna Derlam Moda Fitness', logo: 'fotos/marca-bruna.png', tamanho: 1.15 },
@@ -1342,6 +1343,7 @@
   // escala (opcional): aumenta um logo que ficou pequeno dentro do círculo (ex.: 1.4). cor (opcional): cor de fundo do círculo. Ordem: das marcas mais conhecidas para as menores.
   // Sem logo, aparece o nome escrito dentro do círculo.
   const BRAND_CIRCLES = [
+    { marca: 'Amazon', logo: 'fotos/logo-amazon.png', escala: 1.15 },
     { marca: 'Vivo', logo: 'fotos/logo-vivo.jpg', cheio: true },
     { marca: 'Pantene', logo: 'fotos/logo-pantene.jpg' },
     { marca: 'Eudora', logo: 'fotos/logo-eudora.png', cheio: true, cor: '#613A53', escala: 0.86 },
@@ -1471,6 +1473,7 @@
     { nicho: 'tech',     marca: 'Vivo',               titulo: 'Websérie "A Vida Convida" | Review com Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/1ltmtdlPQFg', inicio: 35 },
     { nicho: 'tech',     marca: 'Vivo',               titulo: 'Websérie "A Vida Convida" | Review com Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/i5Ffw-KeT3g', inicio: 30 },
     { nicho: 'tech',     marca: 'Shell Box',          titulo: 'Voucher de pagamento | Tutorial', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/VeT__5rkrz4', inicio: 34 },
+    { nicho: 'tech',     marca: 'Amazon',             titulo: 'Campanha "Black dos Sonhos" | Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/pGs0vi-cxgc', inicio: 47 },
     { nicho: 'casa',     marca: 'Air Fryer',          titulo: 'Unboxing com review', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/Q9VGra2MvJ8', inicio: 12 },
     { nicho: 'casa',     marca: 'Manta sofá',         titulo: 'Problema x Solução', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/MEtMnTovpQg', inicio: 23 },
     { nicho: 'casa',     marca: 'Coala',              titulo: 'Limpador perfumado | Storytelling', formato: 'vídeo 9:16', imagem: '', link: 'https://youtube.com/shorts/NU0dBAd4VzA', inicio: 11 },
@@ -1712,6 +1715,7 @@
     '5 ideias de look': '5 outfit ideas',
     'Review loja | Conjunto': 'Store review | Matching set',
     'Websérie "A Vida Convida" | Review com Storytelling': '"A Vida Convida" web series | Review with storytelling',
+    'Campanha "Black dos Sonhos" | Storytelling': '"Black dos Sonhos" campaign | Storytelling',
     'Voucher de pagamento | Tutorial': 'Payment voucher | Tutorial',
     'Unboxing com review': 'Unboxing with review',
     'Limpador perfumado | Storytelling': 'Scented cleaner | Storytelling',
