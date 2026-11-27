@@ -389,31 +389,34 @@
     .reels-nav.next { right: 6px; }
 
     /* Player de áudio (mensagem de apresentação) */
+    .audios { margin-top: 26px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 520px; }
+    .audios[hidden] { display: none; }
     .audio-card {
-      margin-top: 30px; max-width: 460px; display: flex; align-items: center; gap: 14px;
-      padding: 14px 16px; border-radius: 22px;
+      display: flex; align-items: center; gap: 9px; min-width: 0;
+      padding: 9px 10px; border-radius: 18px;
     }
     .audio-card[hidden] { display: none; }
     .audio-play {
-      width: 50px; height: 50px; flex: none; border-radius: 50%; border: 0; cursor: pointer;
+      width: 38px; height: 38px; flex: none; border-radius: 50%; border: 0; cursor: pointer;
       display: grid; place-items: center; background: var(--texto); color: #ffffff; transition: transform .2s ease, background .2s ease;
     }
     .audio-play:hover { transform: scale(1.05); background: var(--dourado); color: var(--sobre-dourado); }
-    .audio-play svg { width: 20px; height: 20px; }
+    .audio-play svg { width: 16px; height: 16px; }
     .audio-play .ic-pause { display: none; }
     .audio-card.tocando .audio-play .ic-play { display: none; }
     .audio-card.tocando .audio-play .ic-pause { display: block; }
     .audio-main { flex: 1; min-width: 0; }
-    .audio-wave { display: flex; align-items: center; gap: 3px; height: 30px; cursor: pointer; }
+    .audio-wave { display: flex; align-items: center; gap: 2px; height: 22px; cursor: pointer; }
     .audio-wave i { flex: 1; min-width: 2px; border-radius: 3px; background: rgba(110, 20, 35, .35); transition: background .15s ease; }
     .audio-wave i.ouvido { background: var(--dourado); }
-    .audio-times { display: flex; justify-content: space-between; margin-top: 6px; font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-    .audio-side { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; }
+    .audio-times { display: flex; justify-content: space-between; margin-top: 4px; font-size: .68rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .audio-side { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none; }
     .audio-speed {
       border: 0; cursor: pointer; border-radius: 8px; padding: 3px 7px; font-size: .72rem; font-weight: 700;
       background: rgba(110, 20, 35, .14); color: var(--dourado-texto); font-family: inherit;
     }
-    .audio-side svg { width: 16px; height: 16px; color: var(--muted); }
+    .audio-side svg { width: 13px; height: 13px; color: var(--muted); }
+    .audio-speed { font-size: .66rem; padding: 2px 6px; }
     .play {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center;
@@ -998,21 +1001,23 @@
           <span class="eyebrow reveal">Conteúdos de destaque</span>
           <h2 class="section-title reveal d1" id="destaques-title"><span class="linha">Vídeos que despertam</span> <span class="linha">interesse, geram conexão e</span> <span class="hl">valorizam marcas</span></h2>
           <p class="section-intro reveal d2">Clique em qualquer card para assistir no Instagram.</p>
-          <!-- Player do áudio de apresentação: o arquivo vem de AUDIO no script (fica escondido enquanto não houver áudio) -->
-          <div class="audio-card glass reveal d3" id="audio-card" hidden>
-            <button class="audio-play" type="button" aria-label="Ouvir áudio de apresentação">
-              <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-              <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
-            </button>
-            <div class="audio-main">
-              <div class="audio-wave" id="audio-wave" aria-hidden="true"></div>
-              <div class="audio-times"><span id="audio-atual">0:00</span><span id="audio-total">0:00</span></div>
+          <!-- Players dos áudios de apresentação, lado a lado: os arquivos vêm de AUDIOS no script (um card por áudio) -->
+          <div class="audios reveal d3" id="audios">
+            <div class="audio-card glass" hidden>
+              <button class="audio-play" type="button" aria-label="Ouvir áudio de apresentação">
+                <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+              </button>
+              <div class="audio-main">
+                <div class="audio-wave" aria-hidden="true"></div>
+                <div class="audio-times"><span class="audio-atual">0:00</span><span class="audio-total">0:00</span></div>
+              </div>
+              <div class="audio-side">
+                <button class="audio-speed" type="button" aria-label="Velocidade do áudio">1x</button>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg>
+              </div>
+              <audio preload="metadata"></audio>
             </div>
-            <div class="audio-side">
-              <button class="audio-speed" type="button" aria-label="Velocidade do áudio">1x</button>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg>
-            </div>
-            <audio id="audio-el" preload="metadata"></audio>
           </div>
         </div>
         <!-- Os cards são montados pelo array HIGHLIGHTS no script (link do vídeo e capa ficam lá) -->
@@ -1421,10 +1426,13 @@
     }
   ];
 
-  // Áudio de apresentação (aparece ao lado dos destaques). Coloque o arquivo na pasta "audios"
-  // e escreva o caminho aqui (ex.: 'audios/apresentacao.mp3'). Vazio (''), o player fica escondido.
+  // Áudios de apresentação (aparecem lado a lado nos destaques, um card para cada).
+  // Coloque o arquivo na pasta "audios" e escreva o caminho aqui (ex.: 'audios/apresentacao.m4a').
   // velocidade: a velocidade em que o áudio começa a tocar (1, 1.5 ou 2).
-  const AUDIO = { arquivo: 'audios/apresentacao.m4a', velocidade: 1.5 };
+  const AUDIOS = [
+    { arquivo: 'audios/apresentacao.m4a', velocidade: 1.5 },
+    { arquivo: 'audios/apresentacao-2.m4a', velocidade: 1.5 }
+  ];
 
   // Nichos que aparecem nos botões de filtro (a chave é usada nos trabalhos abaixo).
   const NICHES = {
@@ -1599,6 +1607,7 @@
     { nome: 'Camarão na Caixa', empresa: 'Pratos Express', logo: 'fotos/logo-camarao.jpg', texto: 'Desde que fechamos essa parceria com a Tai, nosso Instagram só cresceu! 🥹 Estamos muito satisfeitos com todo o trabalho, a dedicação e a qualidade dos conteúdos produzidos. As fotos são impecáveis, os vídeos incríveis e tudo é feito com muito cuidado e profissionalismo. Além da qualidade dos conteúdos, estamos vendo os resultados na prática: nossos seguidores só aumentam e um dos vídeos produzidos por ela já ultrapassou 30 mil visualizações! 🚀 Somos muito felizes por ter fechado essa parceria e por contar com alguém que realmente faz a diferença no crescimento da nossa marca. Obrigada, Tai, por todo o trabalho e por contribuir tanto com a nossa evolução! 🍤🔥' },
     { nome: 'Bruna Derlam', empresa: 'Moda Fitness', logo: 'fotos/logo-bruna.jpg', texto: 'Taí é uma alegria ter você representando a Bruna Derlam Moda Fitness! 💙 Seu carinho e cuidado ao mostrar as peças fizeram toda a diferença. A forma leve e natural de se comunicar trouxe proximidade e representou muito bem a essência da marca. Obrigada por fazer parte da nossa história! Obrigada pela sua dedicação nos conteúdos.' },
     { nome: 'Destrava UGC', empresa: 'Campanha de vídeos curtos', logo: 'fotos/logo-destrava.png', texto: 'Além de entregar um conteúdo incrível, exatamente como foi solicitado, a Tainara ainda finalizou tudo em menos de 24 horas! Surreal! Uma agilidade e uma qualidade de entrega que fazem toda a diferença 💗' },
+    { nome: 'Luty dos Cachos', empresa: 'SPA dos Cachos', logo: 'fotos/logo-spadoscachos.png', texto: 'Cara, eu fico chocada como tu é desenrolada, como tu é rápida! Ficou muito bom, eu amei, eu amei. Eu acho que tá ótimo, tá perfeito. Nossa, ficou muito bom, meu Deus do céu! Quando tu ficar muito, muito famosa, vou falar: ela é minha cliente, ela é minha cliente.' },
     { nome: 'Domidona', empresa: 'Calçados', logo: 'fotos/logo-domidona.jpg', texto: 'Adoramos sua entrega! 💜 Você tem uma comunicação muito boa e transmite muita espontaneidade diante das câmeras. Os takes externos foram muito bem explorados e o conteúdo ficou criativo, bem elaborado e com uma apresentação super natural. Parabéns pelo trabalho! 💜' },
     { nome: 'Domidona', empresa: 'Tamanco Off White Laço', logo: 'fotos/logo-domidona.jpg', texto: 'Seguiu super bem a proposta da campanha e trouxe uma abordagem criativa e autêntica. 💜' },
     { nome: 'Acquaflora', empresa: 'Hair care', logo: 'fotos/logo-acquaflora.png', lado: 'direita', texto: 'Avaliação da empresa: 5/5, Excelente.' }
@@ -1870,6 +1879,8 @@
     '5 de 5 estrelas': '5 out of 5 stars',
     'Calçados': 'Footwear',
     'Campanha de vídeos curtos': 'Short video campaign',
+    'Cara, eu fico chocada como tu é desenrolada, como tu é rápida! Ficou muito bom, eu amei, eu amei. Eu acho que tá ótimo, tá perfeito. Nossa, ficou muito bom, meu Deus do céu! Quando tu ficar muito, muito famosa, vou falar: ela é minha cliente, ela é minha cliente.':
+      'Wow, I am amazed at how resourceful and fast you are! It turned out so good, I loved it, I loved it. I think it is great, it is perfect. It turned out so good, oh my God! When you get really, really famous, I will say: she is my client, she is my client.',
     'Além de entregar um conteúdo incrível, exatamente como foi solicitado, a Tainara ainda finalizou tudo em menos de 24 horas! Surreal! Uma agilidade e uma qualidade de entrega que fazem toda a diferença 💗':
       'Besides delivering amazing content, exactly as requested, Tainara finished everything in less than 24 hours! Unreal! That speed and quality of delivery make all the difference 💗',
     'Desde que fechamos essa parceria com a Tai, nosso Instagram só cresceu! 🥹 Estamos muito satisfeitos com todo o trabalho, a dedicação e a qualidade dos conteúdos produzidos. As fotos são impecáveis, os vídeos incríveis e tudo é feito com muito cuidado e profissionalismo. Além da qualidade dos conteúdos, estamos vendo os resultados na prática: nossos seguidores só aumentam e um dos vídeos produzidos por ela já ultrapassou 30 mil visualizações! 🚀 Somos muito felizes por ter fechado essa parceria e por contar com alguém que realmente faz a diferença no crescimento da nossa marca. Obrigada, Tai, por todo o trabalho e por contribuir tanto com a nossa evolução! 🍤🔥':
@@ -2074,47 +2085,55 @@
       }
     })();
 
-    // Player do áudio de apresentação
+    // Players dos áudios de apresentação (um card por áudio; tocar um pausa o outro)
     (function () {
-      const card = $('#audio-card');
-      if (!AUDIO.arquivo || !card) return;
-      const audio = $('#audio-el');
-      const wave = $('#audio-wave');
-      const barras = 42;
-      // Alturas fixas das barrinhas (formato de onda decorativo)
-      let semente = 7;
-      const alturas = Array.from({ length: barras }, () => { semente = (semente * 9301 + 49297) % 233280; return 28 + Math.round((semente / 233280) * 72); });
-      wave.innerHTML = alturas.map((a) => '<i style="height:' + a + '%"></i>').join('');
-      const bars = Array.from(wave.children);
+      const caixa = $('#audios');
+      const modelo = caixa && caixa.querySelector('.audio-card');
+      const lista = AUDIOS.filter((a) => a.arquivo);
+      if (!modelo || !lista.length) { if (caixa) caixa.hidden = true; return; }
+      const cards = lista.map((_, i) => (i === 0 ? modelo : caixa.appendChild(modelo.cloneNode(true))));
+      const todos = [];
+      const barras = 30;
       const tempo = (s) => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
-      audio.src = AUDIO.arquivo;
-      card.hidden = false;
-      audio.addEventListener('loadedmetadata', () => { $('#audio-total').textContent = tempo(audio.duration); });
-      audio.addEventListener('timeupdate', () => {
-        $('#audio-atual').textContent = tempo(audio.currentTime);
-        const p = audio.duration ? audio.currentTime / audio.duration : 0;
-        bars.forEach((b, i) => b.classList.toggle('ouvido', i / barras < p));
-      });
-      audio.addEventListener('play', () => card.classList.add('tocando'));
-      audio.addEventListener('pause', () => card.classList.remove('tocando'));
-      audio.addEventListener('ended', () => card.classList.remove('tocando'));
-      $('.audio-play', card).addEventListener('click', () => { if (audio.paused) audio.play(); else audio.pause(); });
-      wave.addEventListener('click', (e) => {
-        if (!audio.duration) return;
-        const r = wave.getBoundingClientRect();
-        audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
-      });
       const velocidades = [1, 1.5, 2];
-      const velBtn = $('.audio-speed', card);
-      const velInicial = velocidades.includes(Number(AUDIO.velocidade)) ? Number(AUDIO.velocidade) : 1;
-      audio.defaultPlaybackRate = velInicial;
-      audio.playbackRate = velInicial;
-      audio.addEventListener('loadedmetadata', () => { audio.playbackRate = velInicial; }, { once: true });
-      velBtn.textContent = String(velInicial).replace('.', ',') + 'x';
-      velBtn.addEventListener('click', (e) => {
-        const v = velocidades[(velocidades.indexOf(audio.playbackRate) + 1) % velocidades.length];
-        audio.playbackRate = v;
-        e.currentTarget.textContent = String(v).replace('.', ',') + 'x';
+      lista.forEach((cfg, n) => {
+        const card = cards[n];
+        const audio = card.querySelector('audio');
+        const wave = card.querySelector('.audio-wave');
+        todos.push(audio);
+        // Alturas fixas das barrinhas (formato de onda decorativo, diferente em cada card)
+        let semente = 7 + n * 13;
+        const alturas = Array.from({ length: barras }, () => { semente = (semente * 9301 + 49297) % 233280; return 28 + Math.round((semente / 233280) * 72); });
+        wave.innerHTML = alturas.map((a) => '<i style="height:' + a + '%"></i>').join('');
+        const bars = Array.from(wave.children);
+        audio.src = cfg.arquivo;
+        card.hidden = false;
+        audio.addEventListener('loadedmetadata', () => { card.querySelector('.audio-total').textContent = tempo(audio.duration); });
+        audio.addEventListener('timeupdate', () => {
+          card.querySelector('.audio-atual').textContent = tempo(audio.currentTime);
+          const p = audio.duration ? audio.currentTime / audio.duration : 0;
+          bars.forEach((b, i) => b.classList.toggle('ouvido', i / barras < p));
+        });
+        audio.addEventListener('play', () => { card.classList.add('tocando'); todos.forEach((o) => { if (o !== audio) o.pause(); }); });
+        audio.addEventListener('pause', () => card.classList.remove('tocando'));
+        audio.addEventListener('ended', () => card.classList.remove('tocando'));
+        card.querySelector('.audio-play').addEventListener('click', () => { if (audio.paused) audio.play(); else audio.pause(); });
+        wave.addEventListener('click', (e) => {
+          if (!audio.duration) return;
+          const r = wave.getBoundingClientRect();
+          audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+        });
+        const velBtn = card.querySelector('.audio-speed');
+        const velInicial = velocidades.includes(Number(cfg.velocidade)) ? Number(cfg.velocidade) : 1;
+        audio.defaultPlaybackRate = velInicial;
+        audio.playbackRate = velInicial;
+        audio.addEventListener('loadedmetadata', () => { audio.playbackRate = velInicial; }, { once: true });
+        velBtn.textContent = String(velInicial).replace('.', ',') + 'x';
+        velBtn.addEventListener('click', (e) => {
+          const v = velocidades[(velocidades.indexOf(audio.playbackRate) + 1) % velocidades.length];
+          audio.playbackRate = v;
+          e.currentTarget.textContent = String(v).replace('.', ',') + 'x';
+        });
       });
     })();
 
